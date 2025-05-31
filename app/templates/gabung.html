@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: 500;
+        }
+
+        select, button {
+            padding: 10px;
+            margin-top: 8px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .table {
+            margin-top: 20px;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Gabungkan Dua Perhitungan Resistansi</h2>
+        {% if calculations %}
+        <form method="post">
+            <label>Pilih Perhitungan 1:</label><br>
+            <select name="calc1" required>
+                {% for calc in calculations %}
+                <option value="{{ calc.id }}">ID {{ calc.id }}: R = {{ calc.resistance }} Ohm</option>
+                {% endfor %}
+            </select><br><br>
+            <label>Pilih Perhitungan 2:</label><br>
+            <select name="calc2" required>
+                {% for calc in calculations %}
+                <option value="{{ calc.id }}">ID {{ calc.id }}: R = {{ calc.resistance }} Ohm</option>
+                {% endfor %}
+            </select><br><br>
+            <label>Jenis Rangkaian:</label><br>
+            <select name="jenis" required>
+                <option value="seri">Seri</option>
+                <option value="paralel">Paralel</option>
+            </select><br><br>
+            <input type="submit" value="Hitung Resistansi Total">
+        </form>
+        {% endif %}
+        {% if r_total is defined %}
+        <h3>Hasil Gabungan</h3>
+        <p>Jenis Rangkaian: {{ jenis }}</p>
+        <p>Resistansi 1: {{ calc1.resistance }} Ohm</p>
+        <p>Resistansi 2: {{ calc2.resistance }} Ohm</p>
+        <p>Resistansi Total: {{ r_total }} Ohm</p>
+        {% endif %}
+        <br>
+        <div style="text-align:center; margin-top: 10px; font-size: 25px;">
+            <a href="/" style="text-decoration: none; text-align: center;">Kembali ke Perhitungan</a>
+        </div>
+   
+    </div>
+    
+</body>
+</html>
